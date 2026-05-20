@@ -7,7 +7,8 @@ import os
 from dotenv import load_dotenv
 
 from services.chroma_service import (
-    get_all_chunks
+    get_document_chunks,
+    get_all_documents
 )
 
 load_dotenv()
@@ -28,13 +29,19 @@ async def generate_notes():
 
     try:
 
-        chunks = get_all_chunks()
+        documents = get_all_documents()
 
-        if len(chunks) == 0:
+        if len(documents) == 0:
 
             return {
                 "error": "No PDF uploaded yet"
             }
+
+        active_document = documents[-1]
+
+        chunks = get_document_chunks(
+            active_document
+        )
 
         context = "\n\n".join(chunks)
 
@@ -56,7 +63,8 @@ async def generate_notes():
         )
 
         return {
-            "notes": response.text
+            "notes": response.text,
+            "document_used": active_document
         }
 
     except Exception as e:

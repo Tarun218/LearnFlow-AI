@@ -14,6 +14,7 @@ from routes.chat import router as chat_router
 from routes.quiz import router as quiz_router
 from routes.flashcards import router as flashcards_router
 from routes.notes import router as notes_router
+from routes.documents import router as documents_router
 
 load_dotenv()
 
@@ -38,6 +39,7 @@ app.include_router(chat_router)
 app.include_router(quiz_router)
 app.include_router(flashcards_router)
 app.include_router(notes_router)
+app.include_router(documents_router)
 
 
 @app.get("/")

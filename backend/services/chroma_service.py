@@ -63,7 +63,11 @@ def store_document(text, document_id):
     return len(chunks)
 
 
-def search_document(query, k=3):
+def search_document(
+    query,
+    document_id,
+    k=3
+):
 
     query_embedding = model.encode(
         [query]
@@ -71,16 +75,42 @@ def search_document(query, k=3):
 
     results = collection.query(
         query_embeddings=query_embedding,
-        n_results=k
+        n_results=k,
+        where={
+            "document_id": document_id
+        }
     )
 
     return results["documents"][0]
 
 
-def get_all_chunks(limit=10):
+def get_document_chunks(
+    document_id,
+    limit=10
+):
 
     results = collection.get(
+        where={
+            "document_id": document_id
+        },
         limit=limit
     )
 
     return results["documents"]
+
+
+def get_all_documents():
+
+    results = collection.get()
+
+    metadatas = results["metadatas"]
+
+    document_ids = set()
+
+    for metadata in metadatas:
+
+        document_ids.add(
+            metadata["document_id"]
+        )
+
+    return list(document_ids)

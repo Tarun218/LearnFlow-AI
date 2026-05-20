@@ -1,5 +1,7 @@
 from fastapi import APIRouter
 
+from pydantic import BaseModel
+
 import google.generativeai as genai
 
 import os
@@ -14,7 +16,6 @@ load_dotenv()
 
 router = APIRouter()
 
-# Configure Gemini
 genai.configure(
     api_key=os.getenv("GEMINI_API_KEY")
 )
@@ -24,15 +25,23 @@ model = genai.GenerativeModel(
 )
 
 
+class ChatRequest(BaseModel):
+
+    question: str
+
+    document_id: str
+
+
 @router.post("/chat")
 async def chat_with_pdf(
-    question: str
+    request: ChatRequest
 ):
 
     try:
 
         relevant_chunks = search_document(
-            question
+            request.question,
+            request.document_id
         )
 
         context = "\n\n".join(
@@ -40,13 +49,13 @@ async def chat_with_pdf(
         )
 
         prompt = f"""
-        Answer the question using the provided study material.
+        Answer the question using the provided study material only.
 
         STUDY MATERIAL:
         {context}
 
         QUESTION:
-        {question}
+        {request.question}
         """
 
         response = model.generate_content(
@@ -55,7 +64,7 @@ async def chat_with_pdf(
 
         return {
             "answer": response.text,
-            "context_used": relevant_chunks
+            "document_used": request.document_id
         }
 
     except Exception as e:
