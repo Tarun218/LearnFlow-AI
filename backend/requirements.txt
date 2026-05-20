@@ -2,12 +2,11 @@ fastapi
 uvicorn
 sqlalchemy
 passlib[bcrypt]
-python-jose[cryptography]
-pypdf
+python-jose
 python-dotenv
-google-generativeai
 python-multipart
-email-validator
+pypdf
+google-generativeai
 sentence-transformers
 chromadb
 numpy
