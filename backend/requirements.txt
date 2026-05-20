@@ -10,3 +10,4 @@ google-generativeai
 sentence-transformers
 chromadb
 numpy
+email-validator
