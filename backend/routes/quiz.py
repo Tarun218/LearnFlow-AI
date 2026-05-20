@@ -6,13 +6,14 @@ import os
 
 from dotenv import load_dotenv
 
-import services.embedding_service as embedding_service
+from services.chroma_service import (
+    get_all_chunks
+)
 
 load_dotenv()
 
 router = APIRouter()
 
-# Configure Gemini
 genai.configure(
     api_key=os.getenv("GEMINI_API_KEY")
 )
@@ -27,21 +28,15 @@ async def generate_quiz():
 
     try:
 
-        print(
-            "TOTAL CHUNKS:",
-            len(embedding_service.document_chunks)
-        )
+        chunks = get_all_chunks()
 
-        if len(embedding_service.document_chunks) == 0:
+        if len(chunks) == 0:
 
             return {
-                "error": "No PDF uploaded yet",
-                "chunks_found": 0
+                "error": "No PDF uploaded yet"
             }
 
-        context = "\n\n".join(
-            embedding_service.document_chunks[:10]
-        )
+        context = "\n\n".join(chunks)
 
         prompt = f"""
         Generate 5 multiple choice questions from the following study material.
@@ -60,10 +55,7 @@ async def generate_quiz():
         )
 
         return {
-            "quiz": response.text,
-            "chunks_found": len(
-                embedding_service.document_chunks
-            )
+            "quiz": response.text
         }
 
     except Exception as e:

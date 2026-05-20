@@ -6,13 +6,14 @@ import os
 
 from dotenv import load_dotenv
 
-import services.embedding_service as embedding_service
+from services.chroma_service import (
+    get_all_chunks
+)
 
 load_dotenv()
 
 router = APIRouter()
 
-# Configure Gemini
 genai.configure(
     api_key=os.getenv("GEMINI_API_KEY")
 )
@@ -27,15 +28,15 @@ async def generate_notes():
 
     try:
 
-        if len(embedding_service.document_chunks) == 0:
+        chunks = get_all_chunks()
+
+        if len(chunks) == 0:
 
             return {
                 "error": "No PDF uploaded yet"
             }
 
-        context = "\n\n".join(
-            embedding_service.document_chunks[:10]
-        )
+        context = "\n\n".join(chunks)
 
         prompt = f"""
         Create concise and well-structured study notes from the following material.

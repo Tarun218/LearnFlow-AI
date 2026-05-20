@@ -10,8 +10,8 @@ import os
 
 from dotenv import load_dotenv
 
-from services.embedding_service import (
-    create_embeddings
+from services.chroma_service import (
+    store_document
 )
 
 load_dotenv()
@@ -45,7 +45,7 @@ async def upload_pdf(
                 buffer
             )
 
-        # Extract PDF text
+        # Extract text
         reader = PdfReader(file_path)
 
         extracted_text = ""
@@ -58,38 +58,30 @@ async def upload_pdf(
 
                 extracted_text += text
 
-        # Create embeddings
-        total_chunks = create_embeddings(
-            extracted_text
+        # Store in ChromaDB
+        total_chunks = store_document(
+            extracted_text,
+            file.filename
         )
 
-        # Limit text for summary
+        # Summary
         limited_text = extracted_text[:4000]
 
-        summary = "AI summary unavailable."
+        prompt = f"""
+        Summarize the following study material clearly and concisely:
 
-        try:
+        {limited_text}
+        """
 
-            prompt = f"""
-            Summarize the following study material clearly and concisely:
-
-            {limited_text}
-            """
-
-            response = model.generate_content(prompt)
-
-            summary = response.text
-
-        except Exception as ai_error:
-
-            summary = f"Gemini API Error: {str(ai_error)}"
+        response = model.generate_content(
+            prompt
+        )
 
         return {
             "message": "PDF uploaded successfully",
             "filename": file.filename,
             "chunks_created": total_chunks,
-            "text_preview": extracted_text[:1000],
-            "summary": summary
+            "summary": response.text
         }
 
     except Exception as e:

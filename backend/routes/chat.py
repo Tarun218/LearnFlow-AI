@@ -6,8 +6,8 @@ import os
 
 from dotenv import load_dotenv
 
-from services.embedding_service import (
-    search_chunks
+from services.chroma_service import (
+    search_document
 )
 
 load_dotenv()
@@ -31,8 +31,7 @@ async def chat_with_pdf(
 
     try:
 
-        # Retrieve relevant chunks
-        relevant_chunks = search_chunks(
+        relevant_chunks = search_document(
             question
         )
 
@@ -41,9 +40,9 @@ async def chat_with_pdf(
         )
 
         prompt = f"""
-        Answer the question using the provided PDF context only.
+        Answer the question using the provided study material.
 
-        CONTEXT:
+        STUDY MATERIAL:
         {context}
 
         QUESTION:
