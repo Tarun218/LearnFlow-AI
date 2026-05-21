@@ -1,6 +1,9 @@
 import chromadb
 
 from sentence_transformers import SentenceTransformer
+import torch
+
+torch.set_num_threads(1)
 
 # Persistent client
 client = chromadb.PersistentClient(
@@ -14,7 +17,7 @@ collection = client.get_or_create_collection(
 
 # Embedding model
 model = SentenceTransformer(
-    "all-MiniLM-L6-v2"
+    "paraphrase-MiniLM-L3-v2"
 )
 
 
