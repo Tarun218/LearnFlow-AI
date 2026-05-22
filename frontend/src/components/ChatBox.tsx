@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 
+import { API_BASE } from "@/lib/api";
 import { useDocumentStore }
 from "@/store/documentStore";
 
@@ -65,7 +66,7 @@ export default function ChatBox() {
     try {
 
       const response = await fetch(
-        "http://127.0.0.1:8000/chat",
+        `${API_BASE}/chat`,
         {
           method: "POST",
 

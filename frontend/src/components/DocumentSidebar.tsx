@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 
+import { API_BASE } from "@/lib/api";
 import { useDocumentStore }
 from "@/store/documentStore";
 
@@ -25,7 +26,7 @@ export default function DocumentSidebar() {
     try {
 
       const response = await fetch(
-        "http://127.0.0.1:8000/documents"
+        `${API_BASE}/documents`
       );
 
       const data = await response.json();

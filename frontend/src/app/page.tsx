@@ -5,16 +5,20 @@ import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Features from "@/components/Features";
+import { API_BASE } from "@/lib/api";
 
 export default function Home() {
 
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("Checking...");
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/")
+    fetch(`${API_BASE}/`)
       .then((response) => response.json())
       .then((data) => {
-        setMessage(data.message);
+        setMessage(data.message ?? "Connected");
+      })
+      .catch(() => {
+        setMessage("Backend unreachable — set NEXT_PUBLIC_API_URL on deploy");
       });
   }, []);
 

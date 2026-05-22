@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { API_BASE } from "@/lib/api";
+
 export default function NotesBox() {
 
   const [notes, setNotes] = useState("");
@@ -19,7 +21,7 @@ export default function NotesBox() {
     try {
 
       const response = await fetch(
-        "http://127.0.0.1:8000/generate-notes",
+        `${API_BASE}/generate-notes`,
         {
           method: "POST",
         }

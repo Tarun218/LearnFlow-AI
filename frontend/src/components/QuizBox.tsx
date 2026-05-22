@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { API_BASE } from "@/lib/api";
+
 export default function QuizBox() {
 
   const [quiz, setQuiz] = useState("");
@@ -19,7 +21,7 @@ export default function QuizBox() {
     try {
 
       const response = await fetch(
-        "http://127.0.0.1:8000/generate-quiz",
+        `${API_BASE}/generate-quiz`,
         {
           method: "POST",
         }

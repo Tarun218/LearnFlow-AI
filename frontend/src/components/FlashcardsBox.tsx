@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { API_BASE } from "@/lib/api";
+
 export default function FlashcardsBox() {
 
   const [flashcards, setFlashcards] = useState("");
@@ -19,7 +21,7 @@ export default function FlashcardsBox() {
     try {
 
       const response = await fetch(
-        "http://127.0.0.1:8000/generate-flashcards",
+        `${API_BASE}/generate-flashcards`,
         {
           method: "POST",
         }
