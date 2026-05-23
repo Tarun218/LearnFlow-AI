@@ -3,11 +3,15 @@ import chromadb
 from sentence_transformers import SentenceTransformer
 import torch
 
+from config.paths import get_data_dir
+
 torch.set_num_threads(1)
+
+_chroma_path = str(get_data_dir() / "chroma_db")
 
 # Persistent client
 client = chromadb.PersistentClient(
-    path="./chroma_db"
+    path=_chroma_path
 )
 
 # Collection

@@ -4,7 +4,7 @@ from datetime import datetime, timedelta, timezone
 from dotenv import load_dotenv
 from fastapi import APIRouter, Depends, HTTPException
 from jose import jwt
-from passlib.context import CryptContext
+import bcrypt
 from sqlalchemy.orm import Session
 
 from database.db import SessionLocal
@@ -19,7 +19,13 @@ SECRET_KEY = os.getenv("JWT_SECRET_KEY", "learnflow_secret_key")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+def hash_password(password: str) -> str:
+    return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+
+
+def verify_password(password: str, hashed: str) -> bool:
+    return bcrypt.checkpw(password.encode("utf-8"), hashed.encode("utf-8"))
 
 
 def create_access_token(data: dict) -> str:
@@ -47,7 +53,7 @@ def signup(body: SignupRequest, db: Session = Depends(get_db)):
     if db.query(User).filter(User.username == body.username).first():
         raise HTTPException(status_code=400, detail="Username already exists")
 
-    hashed_password = pwd_context.hash(body.password)
+    hashed_password = hash_password(body.password)
 
     new_user = User(
         username=body.username,
@@ -69,7 +75,7 @@ def login(body: LoginRequest, db: Session = Depends(get_db)):
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
 
-    if not pwd_context.verify(body.password, user.password):
+    if not verify_password(body.password, user.password):
         raise HTTPException(status_code=401, detail="Incorrect password")
 
     access_token = create_access_token(data={"sub": user.email})

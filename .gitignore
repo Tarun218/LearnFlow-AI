@@ -29,7 +29,8 @@ build/
 
 # Local databases & user uploads
 backend/learnflow.db
-backend/uploads/*
+backend/data/
+backend/uploads/
 !backend/uploads/.gitkeep
 
 # Vector store (regenerated at runtime)

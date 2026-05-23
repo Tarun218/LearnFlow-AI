@@ -10,9 +10,13 @@ import os
 
 from dotenv import load_dotenv
 
+from config.paths import get_data_dir
 from services.chroma_service import (
     store_document
 )
+
+UPLOAD_DIR = get_data_dir() / "uploads"
+UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 load_dotenv()
 
@@ -35,7 +39,7 @@ async def upload_pdf(
 
     try:
 
-        file_path = f"uploads/{file.filename}"
+        file_path = str(UPLOAD_DIR / file.filename)
 
         # Save PDF
         with open(file_path, "wb") as buffer:
