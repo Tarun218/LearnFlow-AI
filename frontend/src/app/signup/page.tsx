@@ -1,23 +1,29 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
+import { AuthShell } from "@/components/auth/AuthShell";
 import { API_BASE, parseJsonResponse } from "@/lib/api";
+import { Alert, Button, Input, Label } from "@/components/ui";
 
 type SignupResponse = {
   message?: string;
 };
 
 export default function SignupPage() {
+  const router = useRouter();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSignup = async () => {
     setMessage("");
     setIsError(false);
+    setLoading(true);
 
     try {
       const response = await fetch(`${API_BASE}/signup`, {
@@ -29,66 +35,80 @@ export default function SignupPage() {
       const data = await parseJsonResponse<SignupResponse>(response);
       setMessage(data.message ?? "Account created");
       setTimeout(() => {
-        window.location.href = "/login";
+        router.push("/login");
       }, 1000);
     } catch (error) {
       setIsError(true);
       setMessage(
         error instanceof Error ? error.message : "Backend connection failed"
       );
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <main className="min-h-screen bg-black text-white flex items-center justify-center">
-      <div className="w-full max-w-md bg-gray-950 p-8 rounded-2xl border border-gray-800">
-        <h1 className="text-3xl font-bold mb-8 text-center">Create Account</h1>
-
-        <div className="space-y-4">
-          <input
+    <AuthShell
+      title="Create your account"
+      subtitle="Start learning smarter in under a minute"
+    >
+      <div className="space-y-4">
+        <div>
+          <Label>Username</Label>
+          <Input
             type="text"
-            placeholder="Username"
-            className="w-full p-3 rounded-lg bg-gray-900 border border-gray-700"
+            placeholder="yourname"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
+        </div>
 
-          <input
+        <div>
+          <Label>Email</Label>
+          <Input
             type="email"
-            placeholder="Email"
-            className="w-full p-3 rounded-lg bg-gray-900 border border-gray-700"
+            placeholder="you@university.edu"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+        </div>
 
-          <input
+        <div>
+          <Label>Password</Label>
+          <Input
             type="password"
-            placeholder="Password"
-            className="w-full p-3 rounded-lg bg-gray-900 border border-gray-700"
+            placeholder="Min. 6 characters"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSignup()}
+            onKeyDown={(e) => e.key === "Enter" && !loading && handleSignup()}
           />
+        </div>
 
+        <Button
+          type="button"
+          onClick={handleSignup}
+          disabled={loading}
+          className="w-full"
+          size="lg"
+        >
+          {loading ? "Creating account..." : "Create account"}
+        </Button>
+
+        {message && (
+          <Alert variant={isError ? "error" : "success"}>{message}</Alert>
+        )}
+
+        <p className="text-center text-sm text-[var(--lf-fg-muted)]">
+          Already have an account?{" "}
           <button
             type="button"
-            onClick={handleSignup}
-            className="w-full bg-white text-black py-3 rounded-lg font-semibold hover:bg-gray-200 transition"
+            onClick={() => router.push("/login")}
+            className="text-[var(--lf-accent)] hover:underline transition"
           >
-            Sign Up
+            Sign in
           </button>
-
-          {message && (
-            <p
-              className={`text-center mt-4 ${
-                isError ? "text-red-400" : "text-green-400"
-              }`}
-            >
-              {message}
-            </p>
-          )}
-        </div>
+        </p>
       </div>
-    </main>
+    </AuthShell>
   );
 }

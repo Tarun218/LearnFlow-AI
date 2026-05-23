@@ -18,7 +18,10 @@ export async function parseJsonResponse<T>(response: Response): Promise<T> {
     throw new Error(message);
   }
 
+  const apiError = (data as { error?: string }).error;
+  if (apiError) {
+    throw new Error(apiError);
+  }
+
   return data as T;
 }
-
-// production rebuild trigger

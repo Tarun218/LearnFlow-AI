@@ -1,13 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import { motion } from "framer-motion";
+import { FileUp, Upload } from "lucide-react";
 
 import { API_BASE, parseJsonResponse } from "@/lib/api";
+import { useDocumentStore } from "@/store/documentStore";
+import { Alert } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Panel } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 type UploadResponse = {
   message?: string;
+  filename?: string;
   text_preview?: string;
   summary?: string;
+  error?: string;
 };
 
 export default function UploadBox() {
@@ -17,6 +26,9 @@ export default function UploadBox() {
   const [summary, setSummary] = useState("");
   const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [dragOver, setDragOver] = useState(false);
+
+  const { fetchDocuments, setActiveDocument } = useDocumentStore();
 
   const handleUpload = async () => {
     if (!file) {
@@ -46,6 +58,12 @@ export default function UploadBox() {
       setMessage(data.message ?? "Upload complete");
       setPreviewText(data.text_preview ?? "");
       setSummary(data.summary ?? "");
+
+      if (data.filename) {
+        setActiveDocument(data.filename);
+      }
+
+      await fetchDocuments();
     } catch (error) {
       setIsError(true);
       setMessage(
@@ -56,61 +74,109 @@ export default function UploadBox() {
     }
   };
 
+  const onDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    setDragOver(false);
+    const dropped = e.dataTransfer.files?.[0];
+    if (dropped?.type === "application/pdf") {
+      setFile(dropped);
+    }
+  }, []);
+
   return (
-    <div className="w-full max-w-5xl bg-gray-950 border border-gray-800 rounded-2xl p-8">
-      <h2 className="text-3xl font-bold mb-6 text-center">Upload PDF</h2>
+    <Panel className="overflow-hidden p-0">
+      <div className="border-b border-[var(--lf-border)] px-6 py-5">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--lf-lavender)] text-[var(--lf-accent)]">
+            <Upload className="h-5 w-5" />
+          </div>
+          <div>
+            <h2 className="text-xl font-semibold text-[var(--lf-fg)]">
+              📎 Upload PDF
+            </h2>
+            <p className="text-sm text-[var(--lf-fg-muted)]">
+              Add study materials to your workspace
+            </p>
+          </div>
+        </div>
+      </div>
 
-      <div className="space-y-4">
-        <input
-          type="file"
-          accept=".pdf"
-          onChange={(e) => {
-            if (e.target.files?.[0]) {
-              setFile(e.target.files[0]);
-            }
+      <div className="space-y-6 p-6">
+        <motion.div
+          onDragOver={(e) => {
+            e.preventDefault();
+            setDragOver(true);
           }}
-          className="w-full p-3 rounded-lg bg-gray-900 border border-gray-700"
-        />
+          onDragLeave={() => setDragOver(false)}
+          onDrop={onDrop}
+          animate={{
+            borderColor: dragOver
+              ? "rgba(99, 102, 241, 0.6)"
+              : "rgba(255,255,255,0.08)",
+          }}
+          className={cn(
+            "relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 py-12 transition",
+            dragOver && "bg-[var(--lf-lavender)]"
+          )}
+        >
+          <FileUp className="mb-4 h-10 w-10 text-[var(--lf-accent)]" />
+          <p className="text-sm text-[var(--lf-fg-muted)]">
+            Drag & drop your PDF here, or browse
+          </p>
+          <input
+            type="file"
+            accept=".pdf"
+            id="pdf-upload"
+            className="absolute inset-0 cursor-pointer opacity-0"
+            onChange={(e) => {
+              if (e.target.files?.[0]) {
+                setFile(e.target.files[0]);
+              }
+            }}
+          />
+          {file && (
+            <p className="mt-3 text-sm font-medium text-[var(--lf-accent)]">
+              {file.name}
+            </p>
+          )}
+        </motion.div>
 
-        <button
+        <Button
           type="button"
           onClick={handleUpload}
           disabled={loading}
-          className="w-full bg-white text-black py-3 rounded-lg font-semibold hover:bg-gray-200 transition disabled:opacity-50"
+          className="w-full"
+          size="lg"
         >
           {loading ? "Processing..." : "Upload PDF"}
-        </button>
+        </Button>
 
         {message && (
-          <p
-            className={`text-center ${
-              isError ? "text-red-400" : "text-green-400"
-            }`}
-          >
-            {message}
-          </p>
+          <Alert variant={isError ? "error" : "success"}>{message}</Alert>
         )}
 
         {summary && (
-          <div className="mt-8">
-            <h3 className="text-2xl font-semibold mb-4">AI Summary</h3>
-            <div className="bg-black border border-gray-800 rounded-xl p-6 text-gray-300 whitespace-pre-wrap">
+          <div>
+            <h3 className="mb-3 text-sm font-medium uppercase tracking-wider text-[var(--lf-fg-subtle)]">
+              AI Summary
+            </h3>
+            <div className="notebook-bg rounded-xl border border-[var(--lf-border)] bg-[var(--lf-surface)] p-5 text-sm text-[var(--lf-fg)] whitespace-pre-wrap leading-relaxed">
               {summary}
             </div>
           </div>
         )}
 
         {previewText && (
-          <div className="mt-8">
-            <h3 className="text-2xl font-semibold mb-4">
-              Extracted Text Preview
+          <div>
+            <h3 className="mb-3 text-sm font-medium uppercase tracking-wider text-[var(--lf-fg-subtle)]">
+              Text Preview
             </h3>
-            <div className="bg-black border border-gray-800 rounded-xl p-6 max-h-96 overflow-y-auto text-gray-300 whitespace-pre-wrap">
+            <div className="max-h-80 overflow-y-auto notebook-bg rounded-xl border border-[var(--lf-border)] bg-[var(--lf-surface)] p-5 text-sm text-[var(--lf-fg-muted)] whitespace-pre-wrap leading-relaxed">
               {previewText}
             </div>
           </div>
         )}
       </div>
-    </div>
+    </Panel>
   );
 }

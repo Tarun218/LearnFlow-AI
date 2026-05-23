@@ -1,227 +1,209 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Bot, Send, User } from "lucide-react";
 
-import { API_BASE } from "@/lib/api";
-import { useDocumentStore }
-from "@/store/documentStore";
+import { API_BASE, parseJsonResponse } from "@/lib/api";
+import { useDocumentStore } from "@/store/documentStore";
+import { Alert } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Panel } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 interface Message {
-
   role: "user" | "ai";
-
   text: string;
 }
 
-export default function ChatBox() {
+type ChatResponse = {
+  answer?: string;
+  error?: string;
+};
 
-  const {
-    activeDocument
-  } = useDocumentStore();
+export default function ChatBox() {
+  const { activeDocument } = useDocumentStore();
 
   const [question, setQuestion] = useState("");
-
   const [messages, setMessages] = useState<Message[]>([]);
-
   const [loading, setLoading] = useState(false);
+  const [chatError, setChatError] = useState("");
 
-  const messagesEndRef =
-    useRef<HTMLDivElement | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-
-    messagesEndRef.current?.scrollIntoView({
-      behavior: "smooth"
-    });
-
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
 
   const handleAsk = async () => {
-
     if (!question.trim()) return;
 
     if (!activeDocument) {
-
-      alert("Select a document first");
-
+      setChatError("Select a document from the sidebar first.");
       return;
     }
+
+    setChatError("");
 
     const userMessage: Message = {
       role: "user",
       text: question,
     };
 
-    setMessages((prev) => [
-      ...prev,
-      userMessage,
-    ]);
-
+    setMessages((prev) => [...prev, userMessage]);
     setLoading(true);
 
     const currentQuestion = question;
-
     setQuestion("");
 
     try {
+      const response = await fetch(`${API_BASE}/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          question: currentQuestion,
+          document_id: activeDocument,
+        }),
+      });
 
-      const response = await fetch(
-        `${API_BASE}/chat`,
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
-
-          body: JSON.stringify({
-            question: currentQuestion,
-            document_id: activeDocument,
-          }),
-        }
-      );
-
-      const data = await response.json();
-
-      const aiMessage: Message = {
-        role: "ai",
-        text: data.answer || data.error,
-      };
+      const data = await parseJsonResponse<ChatResponse>(response);
 
       setMessages((prev) => [
         ...prev,
-        aiMessage,
+        { role: "ai", text: data.answer ?? "No response from AI" },
       ]);
-
     } catch (error) {
-
-      console.log(error);
-
-      const errorMessage: Message = {
-        role: "ai",
-        text: "Chat request failed",
-      };
-
-      setMessages((prev) => [
-        ...prev,
-        errorMessage,
-      ]);
-
+      const errorText =
+        error instanceof Error ? error.message : "Chat request failed";
+      setChatError(errorText);
+      setMessages((prev) => [...prev, { role: "ai", text: errorText }]);
     } finally {
-
       setLoading(false);
     }
   };
 
   return (
-    <div className="w-full max-w-5xl bg-gray-950 border border-gray-800 rounded-2xl p-6">
-
-      <div className="flex items-center justify-between mb-6">
-
-        <h2 className="text-3xl font-bold">
-          Chat With PDF
-        </h2>
-
-        {activeDocument && (
-
-          <div className="text-sm text-gray-400">
-
-            Active:
-            <span className="ml-2 text-white font-semibold">
-
-              {activeDocument}
-
-            </span>
-
-          </div>
-        )}
-
+    <Panel className="flex flex-col overflow-hidden p-0">
+      <div className="flex items-center justify-between border-b border-[var(--lf-border)] px-6 py-5">
+        <div>
+          <h2 className="text-xl font-semibold text-[var(--lf-fg)]">
+            💬 Chat with PDF
+          </h2>
+          <p className="text-sm text-[var(--lf-fg-muted)]">
+            {activeDocument
+              ? `Context: ${activeDocument}`
+              : "Select a document to start"}
+          </p>
+        </div>
       </div>
 
-      <div className="bg-black border border-gray-800 rounded-xl p-6 h-[550px] overflow-y-auto space-y-6">
+      {chatError && (
+        <div className="px-6 pt-4">
+          <Alert variant="error">{chatError}</Alert>
+        </div>
+      )}
 
-        {messages.length === 0 && (
+      <div className="flex h-[min(520px,60vh)] flex-col">
+        <div className="flex-1 space-y-4 overflow-y-auto p-6">
+          {messages.length === 0 && (
+            <div className="flex h-full flex-col items-center justify-center text-center">
+              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--lf-lavender)]">
+                <Bot className="h-7 w-7 text-[var(--lf-accent)]" />
+              </div>
+              <p className="text-[var(--lf-fg-muted)]">
+                {activeDocument
+                  ? "Ask anything about your selected PDF"
+                  : "Upload and select a document first"}
+              </p>
+            </div>
+          )}
 
-          <div className="h-full flex items-center justify-center">
-
-            <p className="text-gray-500 text-lg">
-              Ask questions about your selected PDF...
-            </p>
-
-          </div>
-        )}
-
-        {messages.map((message, index) => (
-
-          <div
-            key={index}
-            className={`flex ${
-              message.role === "user"
-                ? "justify-end"
-                : "justify-start"
-            }`}
-          >
-
-            <div
-              className={`max-w-[80%] p-4 rounded-2xl whitespace-pre-wrap leading-relaxed ${
-                message.role === "user"
-                  ? "bg-white text-black"
-                  : "bg-gray-800 text-white"
-              }`}
+          {messages.map((message, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={cn(
+                "flex gap-3",
+                message.role === "user" ? "flex-row-reverse" : ""
+              )}
             >
-              {message.text}
+              <div
+                className={cn(
+                  "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg",
+                  message.role === "user"
+                    ? "bg-[var(--lf-accent)] text-white"
+                    : "bg-[var(--lf-lavender)] text-[var(--lf-accent)]"
+                )}
+              >
+                {message.role === "user" ? (
+                  <User className="h-4 w-4" />
+                ) : (
+                  <Bot className="h-4 w-4" />
+                )}
+              </div>
+              <div
+                className={cn(
+                  "max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap",
+                  message.role === "user"
+                    ? "chat-bubble-user"
+                    : "chat-bubble-ai"
+                )}
+              >
+                {message.text}
+              </div>
+            </motion.div>
+          ))}
+
+          {loading && (
+            <div className="flex gap-3">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--lf-lavender)]">
+                <Bot className="h-4 w-4 text-[var(--lf-accent)]" />
+              </div>
+              <div className="chat-bubble-ai px-4 py-3">
+                <span className="inline-flex gap-1">
+                  {[0, 1, 2].map((i) => (
+                    <motion.span
+                      key={i}
+                      className="h-2 w-2 rounded-full bg-[var(--lf-accent)]"
+                      animate={{ opacity: [0.3, 1, 0.3] }}
+                      transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        delay: i * 0.2,
+                      }}
+                    />
+                  ))}
+                </span>
+              </div>
             </div>
+          )}
 
+          <div ref={messagesEndRef} />
+        </div>
+
+        <div className="border-t border-[var(--lf-border)] bg-[var(--lf-bg-muted)]/50 p-4">
+          <div className="flex gap-3">
+            <Input
+              placeholder="Ask about your PDF..."
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !loading) handleAsk();
+              }}
+            />
+            <Button
+              type="button"
+              onClick={handleAsk}
+              disabled={loading || !activeDocument}
+              className="shrink-0 px-5"
+            >
+              <Send className="h-4 w-4" />
+            </Button>
           </div>
-        ))}
-
-        {loading && (
-
-          <div className="flex justify-start">
-
-            <div className="bg-gray-800 text-white px-5 py-4 rounded-2xl animate-pulse">
-
-              AI is thinking...
-
-            </div>
-
-          </div>
-        )}
-
-        <div ref={messagesEndRef} />
-
+        </div>
       </div>
-
-      <div className="flex gap-4 mt-6">
-
-        <input
-          type="text"
-          placeholder="Ask something about the PDF..."
-          value={question}
-          onChange={(e) =>
-            setQuestion(e.target.value)
-          }
-          onKeyDown={(e) => {
-
-            if (e.key === "Enter") {
-
-              handleAsk();
-            }
-          }}
-          className="flex-1 p-4 rounded-xl bg-black border border-gray-700 text-white outline-none focus:border-white"
-        />
-
-        <button
-          onClick={handleAsk}
-          disabled={loading}
-          className="bg-white text-black px-8 rounded-xl font-semibold hover:bg-gray-200 transition disabled:opacity-50"
-        >
-          Send
-        </button>
-
-      </div>
-
-    </div>
+    </Panel>
   );
 }

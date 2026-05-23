@@ -1,7 +1,7 @@
 fastapi
 uvicorn
 sqlalchemy
-passlib[bcrypt]
+passlib[bcrypt]==1.7.4
 python-jose
 python-dotenv
 python-multipart
@@ -13,3 +13,4 @@ numpy
 email-validator
 torch==2.12.0+cpu
 --extra-index-url https://download.pytorch.org/whl/cpu
+bcrypt==4.0.1

@@ -1,22 +1,28 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
+import { AuthShell } from "@/components/auth/AuthShell";
 import { API_BASE, parseJsonResponse } from "@/lib/api";
+import { Alert, Button, Input, Label } from "@/components/ui";
 
 type LoginResponse = {
   access_token?: string;
 };
 
 export default function LoginPage() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
     setMessage("");
     setIsError(false);
+    setLoading(true);
 
     try {
       const response = await fetch(`${API_BASE}/login`, {
@@ -29,7 +35,7 @@ export default function LoginPage() {
 
       if (data.access_token) {
         localStorage.setItem("token", data.access_token);
-        window.location.href = "/dashboard";
+        router.push("/dashboard");
         return;
       }
 
@@ -40,51 +46,63 @@ export default function LoginPage() {
       setMessage(
         error instanceof Error ? error.message : "Backend connection failed"
       );
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <main className="min-h-screen bg-black text-white flex items-center justify-center">
-      <div className="w-full max-w-md bg-gray-950 p-8 rounded-2xl border border-gray-800">
-        <h1 className="text-3xl font-bold mb-8 text-center">Login</h1>
-
-        <div className="space-y-4">
-          <input
+    <AuthShell
+      title="Welcome back"
+      subtitle="Sign in to continue to your workspace"
+    >
+      <div className="space-y-4">
+        <div>
+          <Label>Email</Label>
+          <Input
             type="email"
-            placeholder="Email"
-            className="w-full p-3 rounded-lg bg-gray-900 border border-gray-700"
+            placeholder="you@university.edu"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+        </div>
 
-          <input
+        <div>
+          <Label>Password</Label>
+          <Input
             type="password"
-            placeholder="Password"
-            className="w-full p-3 rounded-lg bg-gray-900 border border-gray-700"
+            placeholder="••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleLogin()}
+            onKeyDown={(e) => e.key === "Enter" && !loading && handleLogin()}
           />
+        </div>
 
+        <Button
+          type="button"
+          onClick={handleLogin}
+          disabled={loading}
+          className="w-full"
+          size="lg"
+        >
+          {loading ? "Signing in..." : "Sign in"}
+        </Button>
+
+        {message && (
+          <Alert variant={isError ? "error" : "success"}>{message}</Alert>
+        )}
+
+        <p className="text-center text-sm text-[var(--lf-fg-muted)]">
+          No account?{" "}
           <button
             type="button"
-            onClick={handleLogin}
-            className="w-full bg-white text-black py-3 rounded-lg font-semibold hover:bg-gray-200 transition"
+            onClick={() => router.push("/signup")}
+            className="text-[var(--lf-accent)] hover:underline transition"
           >
-            Login
+            Create one
           </button>
-
-          {message && (
-            <p
-              className={`text-center mt-4 ${
-                isError ? "text-red-400" : "text-green-400"
-              }`}
-            >
-              {message}
-            </p>
-          )}
-        </div>
+        </p>
       </div>
-    </main>
+    </AuthShell>
   );
 }

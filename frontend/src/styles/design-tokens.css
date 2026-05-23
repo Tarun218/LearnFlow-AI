@@ -1,0 +1,118 @@
+/**
+ * LearnFlow AI — Study-themed design tokens
+ * Light: notebook / journal · Dark: cozy study-at-night
+ */
+
+:root {
+  /* Light mode — warm academic notebook */
+  --lf-bg: #f7f3eb;
+  --lf-bg-elevated: #fffdf8;
+  --lf-bg-muted: #efe9dc;
+  --lf-surface: #ffffff;
+  --lf-surface-hover: #f5f0e6;
+
+  --lf-fg: #2d3a4f;
+  --lf-fg-muted: #5c6b7f;
+  --lf-fg-subtle: #8b98a8;
+
+  --lf-border: rgba(45, 58, 79, 0.1);
+  --lf-border-strong: rgba(45, 58, 79, 0.18);
+
+  --lf-accent: #5b8def;
+  --lf-accent-hover: #4a7ad4;
+  --lf-accent-secondary: #a78bfa;
+  --lf-accent-glow: rgba(91, 141, 239, 0.35);
+
+  --lf-highlight: #fde68a;
+  --lf-highlight-soft: #fef9c3;
+  --lf-lavender: #ede9fe;
+  --lf-teal: #5eead4;
+  --lf-sticky: #fef08a;
+  --lf-paper-line: rgba(91, 141, 239, 0.12);
+
+  --lf-success: #10b981;
+  --lf-warning: #f59e0b;
+  --lf-error: #ef4444;
+
+  --lf-shadow-sm: 0 1px 3px rgba(45, 58, 79, 0.08);
+  --lf-shadow-md: 0 8px 24px rgba(45, 58, 79, 0.1);
+  --lf-shadow-lg: 0 16px 48px rgba(45, 58, 79, 0.12);
+  --lf-shadow-paper: 0 4px 0 rgba(45, 58, 79, 0.06), 0 8px 24px rgba(45, 58, 79, 0.08);
+
+  --background: var(--lf-bg);
+  --foreground: var(--lf-fg);
+  --muted: var(--lf-fg-subtle);
+  --border: var(--lf-border);
+  --card: var(--lf-surface);
+  --accent: var(--lf-accent);
+  --accent-secondary: var(--lf-accent-secondary);
+  --glow: var(--lf-accent-glow);
+
+  color-scheme: light;
+}
+
+.dark {
+  --lf-bg: #1a1625;
+  --lf-bg-elevated: #221e2e;
+  --lf-bg-muted: #2a2538;
+  --lf-surface: #2d2840;
+  --lf-surface-hover: #36304a;
+
+  --lf-fg: #f4f0e8;
+  --lf-fg-muted: #c4bccf;
+  --lf-fg-subtle: #8f8799;
+
+  --lf-border: rgba(244, 240, 232, 0.08);
+  --lf-border-strong: rgba(244, 240, 232, 0.14);
+
+  --lf-accent: #8ba8ff;
+  --lf-accent-hover: #a3b9ff;
+  --lf-accent-secondary: #c4b5fd;
+  --lf-accent-glow: rgba(139, 168, 255, 0.35);
+
+  --lf-highlight: #ca8a04;
+  --lf-highlight-soft: rgba(254, 240, 138, 0.15);
+  --lf-lavender: rgba(167, 139, 250, 0.2);
+  --lf-teal: rgba(94, 234, 212, 0.25);
+  --lf-sticky: rgba(254, 240, 138, 0.2);
+  --lf-paper-line: rgba(139, 168, 255, 0.08);
+
+  --lf-success: #34d399;
+  --lf-warning: #fbbf24;
+  --lf-error: #f87171;
+
+  --lf-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --lf-shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --lf-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.45);
+  --lf-shadow-paper: 0 4px 0 rgba(0, 0, 0, 0.2), 0 8px 32px rgba(0, 0, 0, 0.3);
+
+  --background: var(--lf-bg);
+  --foreground: var(--lf-fg);
+  --muted: var(--lf-fg-subtle);
+  --border: var(--lf-border);
+  --card: var(--lf-surface);
+  --accent: var(--lf-accent);
+  --accent-secondary: var(--lf-accent-secondary);
+  --glow: var(--lf-accent-glow);
+
+  color-scheme: dark;
+}
+
+/* Shared tokens */
+:root,
+.dark {
+  --lf-font-sans: var(--font-geist-sans), "Segoe UI", system-ui, sans-serif;
+  --lf-font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --lf-radius-sm: 0.5rem;
+  --lf-radius-md: 0.75rem;
+  --lf-radius-lg: 1rem;
+  --lf-radius-xl: 1.25rem;
+  --lf-radius-2xl: 1.5rem;
+  --lf-radius-full: 9999px;
+
+  --lf-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --lf-duration-fast: 150ms;
+  --lf-duration-normal: 280ms;
+  --lf-duration-slow: 450ms;
+}

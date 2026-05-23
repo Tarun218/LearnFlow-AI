@@ -1,0 +1,12 @@
+import { cn } from "@/lib/utils";
+
+export function Skeleton({ className }: { className?: string }) {
+  return (
+    <div
+      className={cn(
+        "shimmer rounded-2xl bg-[var(--lf-bg-muted)]",
+        className
+      )}
+    />
+  );
+}
