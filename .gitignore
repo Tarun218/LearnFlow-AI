@@ -1,11 +1,60 @@
-node_modules
-.next
-.env
-__pycache__
+# Dependencies
+node_modules/
+frontend/node_modules/
 
-# Backend
+# Next.js
+frontend/.next/
+frontend/out/
+frontend/build/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
 backend/venv/
-backend/.env
+backend/.venv/
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Environment & secrets (never commit)
+.env
+.env.*
+!.env.example
+!**/.env.example
+!**/.env.local.example
+
+# Local databases & user uploads
 backend/learnflow.db
-backend/uploads/
-backend/**/__pycache__/
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Vector store (regenerated at runtime)
+backend/chroma_db/
+
+# IDE & OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Logs & debug
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Vercel / deploy artifacts
+.vercel/
+frontend/.vercel/
+
+# TypeScript
+*.tsbuildinfo
+
+# Model caches (optional local HF cache)
+.cache/
+models/
