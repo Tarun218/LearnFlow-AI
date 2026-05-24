@@ -21,14 +21,16 @@ export default function DashboardPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const checkAuth = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        router.replace("/login");
+      } else {
+        setReady(true);
+      }
+    };
 
-    if (!token) {
-      router.replace("/login");
-      return;
-    }
-
-    setReady(true);
+    checkAuth();
   }, [router]);
 
   if (!ready) {
