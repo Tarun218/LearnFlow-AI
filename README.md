@@ -53,7 +53,7 @@ flowchart LR
 | **Frontend** | Next.js 16, React 19, TypeScript, Tailwind CSS v4, Framer Motion, Zustand |
 | **Backend** | FastAPI, SQLAlchemy, SQLite, ChromaDB, Sentence Transformers |
 | **AI** | Google Gemini (`gemini-2.5-flash`) |
-| **Auth** | JWT (python-jose), bcrypt passlib |
+| **Auth** | JWT (python-jose), bcrypt |
 
 ---
 
