@@ -1,29 +1,27 @@
 import os
 
 from dotenv import load_dotenv
-from google.api_core import exceptions as google_exceptions
 
 load_dotenv()
 
 MODEL_NAME = "gemini-2.5-flash"
 _api_key = os.getenv("GEMINI_API_KEY")
-_model = None
+_client = None
 
 
 def is_configured() -> bool:
     return bool(_api_key)
 
 
-def _get_model():
-    global _model
+def _get_client():
+    global _client
     if not _api_key:
         return None
-    if _model is None:
-        import google.genai as genai
+    if _client is None:
+        from google import genai
 
-        genai.configure(api_key=_api_key)
-        _model = genai.GenerativeModel(MODEL_NAME)
-    return _model
+        _client = genai.Client(api_key=_api_key)
+    return _client
 
 
 def summarize_study_material(text: str) -> str:
@@ -31,8 +29,8 @@ def summarize_study_material(text: str) -> str:
     if not text or not text.strip():
         raise ValueError("Text is required")
 
-    model = _get_model()
-    if model is None:
+    client = _get_client()
+    if client is None:
         raise RuntimeError("GEMINI_API_KEY is not configured in backend/.env")
 
     prompt = (
@@ -41,12 +39,11 @@ def summarize_study_material(text: str) -> str:
     )
 
     try:
-        response = model.generate_content(prompt)
-    except google_exceptions.NotFound as exc:
-        raise RuntimeError(
-            f"Model '{MODEL_NAME}' is unavailable. {exc}"
-        ) from exc
-    except google_exceptions.GoogleAPIError as exc:
+        response = client.models.generate_content(
+            model=MODEL_NAME,
+            contents=prompt
+        )
+    except Exception as exc:
         raise RuntimeError(f"Gemini API error: {exc}") from exc
 
     if not response.text:

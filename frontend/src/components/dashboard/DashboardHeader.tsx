@@ -1,9 +1,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 import { BookOpen, LogOut, Menu } from "lucide-react";
 
-import { ThemeToggle } from "@/components/theme/ThemeToggle";
+const ThemeToggle = dynamic(
+  () => import("@/components/theme/ThemeToggle"),
+  { ssr: false }
+);
 import { Button } from "@/components/ui/button";
 
 type DashboardHeaderProps = {

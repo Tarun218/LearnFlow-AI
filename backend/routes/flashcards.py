@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-import google.genai as genai
+from google import genai
 
 import os
 
@@ -15,13 +15,11 @@ load_dotenv()
 
 router = APIRouter()
 
-genai.configure(
-    api_key=os.getenv("GEMINI_API_KEY")
-)
-
-model = genai.GenerativeModel(
-    "gemini-2.5-flash"
-)
+api_key = os.getenv("GEMINI_API_KEY")
+if api_key:
+    client = genai.Client(api_key=api_key)
+else:
+    client = None
 
 
 @router.post("/generate-flashcards")
@@ -56,8 +54,12 @@ async def generate_flashcards():
         {context}
         """
 
-        response = model.generate_content(
-            prompt
+        if not client:
+            return {"error": "GEMINI_API_KEY not configured"}
+
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt
         )
 
         return {

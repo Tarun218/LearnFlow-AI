@@ -4,7 +4,7 @@ import shutil
 
 from pypdf import PdfReader
 
-import google.genai as genai
+from google import genai
 
 import os
 
@@ -22,14 +22,12 @@ load_dotenv()
 
 router = APIRouter()
 
-# Configure Gemini
-genai.configure(
-    api_key=os.getenv("GEMINI_API_KEY")
-)
-
-model = genai.GenerativeModel(
-    "gemini-2.5-flash"
-)
+# Initialize Gemini client
+api_key = os.getenv("GEMINI_API_KEY")
+if api_key:
+    client = genai.Client(api_key=api_key)
+else:
+    client = None
 
 
 @router.post("/upload-pdf")
@@ -38,6 +36,9 @@ async def upload_pdf(
 ):
 
     try:
+
+        if not client:
+            return {"error": "GEMINI_API_KEY not configured"}
 
         file_path = str(UPLOAD_DIR / file.filename)
 
@@ -77,8 +78,9 @@ async def upload_pdf(
         {limited_text}
         """
 
-        response = model.generate_content(
-            prompt
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt
         )
 
         return {

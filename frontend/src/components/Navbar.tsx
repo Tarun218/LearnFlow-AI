@@ -2,10 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { BookOpen, Menu, X } from "lucide-react";
 
-import { ThemeToggle } from "@/components/theme/ThemeToggle";
+const ThemeToggle = dynamic(
+  () => import("@/components/theme/ThemeToggle"),
+  { ssr: false }
+);
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 

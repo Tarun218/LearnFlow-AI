@@ -3,9 +3,13 @@
 import { motion } from "framer-motion";
 import { BookOpen } from "lucide-react";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 
 import { StudyBackground } from "@/components/layout/StudyBackground";
-import { ThemeToggle } from "@/components/theme/ThemeToggle";
+const ThemeToggle = dynamic(
+  () => import("@/components/theme/ThemeToggle"),
+  { ssr: false }
+);
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Panel } from "@/components/ui/card";
 

@@ -10,20 +10,8 @@ type ThemeToggleProps = {
   className?: string;
 };
 
-export function ThemeToggle({ className }: ThemeToggleProps) {
-  const { theme, toggleTheme, mounted } = useTheme();
-
-  if (!mounted) {
-    return (
-      <div
-        className={cn(
-          "h-9 w-9 rounded-xl border border-[var(--lf-border)] bg-[var(--lf-surface)]",
-          className
-        )}
-        aria-hidden
-      />
-    );
-  }
+export default function ThemeToggle({ className }: ThemeToggleProps) {
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <motion.button
@@ -35,14 +23,15 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
         "relative flex h-9 w-9 items-center justify-center rounded-xl border border-[var(--lf-border)] bg-[var(--lf-surface)] text-[var(--lf-fg-muted)] shadow-[var(--lf-shadow-sm)] transition-colors hover:text-[var(--lf-accent)] hover:border-[var(--lf-accent)]/30",
         className
       )}
-      aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+      aria-label="Toggle theme"
     >
       <motion.span
-        key={theme}
+        key={theme || "default"}
         initial={{ rotate: -90, opacity: 0 }}
         animate={{ rotate: 0, opacity: 1 }}
         transition={{ duration: 0.25 }}
         className="flex items-center justify-center"
+        suppressHydrationWarning
       >
         {theme === "dark" ? (
           <Sun className="h-4 w-4 text-amber-400" />
