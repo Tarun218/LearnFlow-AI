@@ -42,9 +42,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const initial = getStoredTheme();
-    applyTheme(initial);
-    setThemeState(initial);
+    applyTheme(theme);
+  }, [theme]);
+
+  useEffect(() => {
     setMounted(true);
   }, []);
 
