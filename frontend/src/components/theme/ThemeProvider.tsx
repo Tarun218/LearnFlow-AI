@@ -40,8 +40,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const initial = getStoredTheme();
-    setThemeState(initial);
     applyTheme(initial);
+    setThemeState(initial);
     setMounted(true);
   }, []);
 
