@@ -35,7 +35,10 @@ function getStoredTheme(): Theme {
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("light");
+  const [theme, setThemeState] = useState<Theme>(() => {
+    if (typeof window === "undefined") return "light";
+    return getStoredTheme();
+  });
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
