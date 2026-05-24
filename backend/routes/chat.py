@@ -2,7 +2,7 @@ from fastapi import APIRouter
 
 from pydantic import BaseModel
 
-import google.generativeai as genai
+import google.genai as genai
 
 import os
 

@@ -19,7 +19,7 @@ def _get_model():
     if not _api_key:
         return None
     if _model is None:
-        import google.generativeai as genai
+        import google.genai as genai
 
         genai.configure(api_key=_api_key)
         _model = genai.GenerativeModel(MODEL_NAME)
