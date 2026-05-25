@@ -25,7 +25,7 @@
 
 ---
 
-# ✨ Overview
+#Overview
 
 LearnFlow AI is a modern AI-powered study platform designed to help students learn faster and more efficiently.
 
@@ -44,19 +44,19 @@ The platform combines:
 
 ---
 
-# 🚀 Live Demo
+#Live Demo
 
-## 🌐 Frontend
+##Frontend
 
-👉 https://learn-flow-4w3y9r3wx-tarun218s-projects.vercel.app
+ https://learn-flow-4w3y9r3wx-tarun218s-projects.vercel.app
 
-## ⚡ Backend API
+##Backend API
 
-👉 https://tarunsingodia-learnflow-ai-backend.hf.space
+ https://tarunsingodia-learnflow-ai-backend.hf.space
 
 ---
 
-# 📸 Screenshots
+# Screenshots
 
 > All screenshots are stored inside:
 >
@@ -64,7 +64,7 @@ The platform combines:
 
 ---
 
-## 🏠 Landing Page
+## Landing Page
 
 ### Hero Section
 ![Landing Hero](docs/screenshots/landing1.png)
@@ -86,49 +86,49 @@ The platform combines:
 
 ---
 
-## 🔐 Authentication
+## Authentication
 
 ### Signup Page
 ![Signup](docs/screenshots/signup.png)
 
 ---
 
-## 📚 Study Dashboard
+## Study Dashboard
 
 ### PDF Upload Workspace
 ![Upload](docs/screenshots/upload.png)
 
 ---
 
-## 💬 AI Chat Assistant
+## AI Chat Assistant
 
 ### Chat Interface
 ![Chat](docs/screenshots/chat.png)
 
 ---
 
-## 🧠 Flashcards Generation
+## Flashcards Generation
 
 ### Smart Flashcards
 ![Flashcards](docs/screenshots/flashcards.png)
 
 ---
 
-## 📝 Quiz Generation
+## Quiz Generation
 
 ### AI Quiz Generator
 ![Quiz](docs/screenshots/quiz.png)
 
 ---
 
-## 📝 Notes Generation
+## Notes Generation
 
 ### AI Notes Summarization
 ![Notes](docs/screenshots/notes.png)
 
 ---
 
-## 🧠 Flashcards Generator
+## Flashcards Generator
 
 - AI-generated flashcards
 - Interactive flip animations
@@ -136,7 +136,7 @@ The platform combines:
 
 ---
 
-## ❓ Quiz Generator
+## Quiz Generator
 
 - Multiple-choice quizzes
 - AI-generated practice questions
@@ -144,7 +144,7 @@ The platform combines:
 
 ---
 
-## 🎨 Modern Study-Themed UI
+## Modern Study-Themed UI
 
 - Animated interface
 - Dark & light modes
@@ -154,7 +154,7 @@ The platform combines:
 
 ---
 
-# 🏗️ System Architecture
+# System Architecture
 
 ```mermaid
 flowchart LR
@@ -188,7 +188,7 @@ flowchart LR
 
 ---
 
-# 🛠️ Tech Stack
+# Tech Stack
 
 ## Frontend
 
@@ -227,7 +227,7 @@ flowchart LR
 
 ---
 
-# 📂 Project Structure
+# Project Structure
 
 ```bash
 LearnFlow-AI/
@@ -249,9 +249,9 @@ LearnFlow-AI/
 
 ---
 
-# ⚙️ Local Setup
+# Local Setup
 
-# 1️⃣ Clone Repository
+# 1. Clone Repository
 
 ```bash
 git clone https://github.com/Tarun218/LearnFlow-AI.git
@@ -261,7 +261,7 @@ cd LearnFlow-AI
 
 ---
 
-# 2️⃣ Backend Setup
+# 2. Backend Setup
 
 ```bash
 cd backend
@@ -294,7 +294,7 @@ python -m uvicorn main:app --reload --port 8000
 
 ---
 
-# 3️⃣ Frontend Setup
+# 3. Frontend Setup
 
 Open new terminal:
 
@@ -320,7 +320,7 @@ npm run dev
 
 ---
 
-# 🔐 Environment Variables
+# -> Environment Variables
 
 ## Frontend
 
@@ -340,7 +340,7 @@ CORS_ORIGINS=
 
 ---
 
-# 🌍 Deployment
+# -> Deployment
 
 ## Frontend → Vercel
 
@@ -372,7 +372,7 @@ Deploy.
 
 ---
 
-# 📡 API Endpoints
+# -> API Endpoints
 
 | Method | Endpoint | Description |
 |---|---|---|
@@ -386,7 +386,7 @@ Deploy.
 
 ---
 
-# 🧪 Future Improvements
+# Future Improvements
 
 - Study planner
 - Spaced repetition
@@ -398,7 +398,7 @@ Deploy.
 
 ---
 
-# 👨‍💻 Author
+# Author
 
 ## Tarun Singodia
 
@@ -408,7 +408,7 @@ Built with passion for students, AI, and smarter learning.
 
 ---
 
-# ⭐ Support
+#  Support
 
 If you like this project:
 
@@ -418,6 +418,6 @@ If you like this project:
 
 ---
 
-# 📄 License
+# License
 
 This project is built for educational and portfolio purposes.
