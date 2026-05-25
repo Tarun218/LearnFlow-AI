@@ -70,16 +70,16 @@ The platform combines:
 ![Landing Hero](docs/screenshots/landing1.png)
 
 ### Features Overview
-![Landing Features](docs/screenshots/landing3.png)
+![Landing Features](docs/screenshots/landing4.png)
 
 ### Statistics Section
 ![Landing Stats](docs/screenshots/landing2.png)
 
 ### Learning Experience
-![Learning Experience](docs/screenshots/landing4.png)
+![Learning Experience](docs/screenshots/landing5.png)
 
-### Dashboard Preview
-![Dashboard Preview](docs/screenshots/landing5.png)
+### Product Overview
+![Dashboard Preview](docs/screenshots/landing3.png)
 
 ### Footer Section
 ![Footer](docs/screenshots/landing6.png)
