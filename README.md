@@ -49,11 +49,11 @@ The platform combines:
 
 ## 🌐 Frontend
 
-👉 YOUR_VERCEL_LINK_HERE
+👉 https://learn-flow-r11dhrlj0-tarun218s-projects.vercel.app
 
 ## ⚡ Backend API
 
-👉 YOUR_HUGGINGFACE_LINK_HERE
+👉 https://tarunsingodia-learnflow-ai-backend.hf.space
 
 ---
 
