@@ -25,7 +25,7 @@
 
 ---
 
-#Overview
+# Overview
 
 LearnFlow AI is a modern AI-powered study platform designed to help students learn faster and more efficiently.
 
@@ -44,7 +44,7 @@ The platform combines:
 
 ---
 
-#Live Demo
+# Live Demo
 
 ##Frontend
 
