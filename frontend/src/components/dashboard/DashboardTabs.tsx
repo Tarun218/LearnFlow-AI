@@ -18,11 +18,11 @@ import { tabIndicatorSpring } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 const tabs = [
-  { id: "upload", label: "Upload", icon: FileUp, emoji: "📎" },
-  { id: "chat", label: "Chat", icon: MessageSquare, emoji: "💬" },
-  { id: "notes", label: "Notes", icon: NotebookPen, emoji: "📝" },
-  { id: "flashcards", label: "Cards", icon: Layers, emoji: "🃏" },
-  { id: "quiz", label: "Quiz", icon: Sparkles, emoji: "✨" },
+  { id: "upload", label: "Upload", icon: FileUp },
+  { id: "chat", label: "Chat", icon: MessageSquare },
+  { id: "notes", label: "Notes", icon: NotebookPen },
+  { id: "flashcards", label: "Cards", icon: Layers },
+  { id: "quiz", label: "Quiz", icon: Sparkles },
 ] as const;
 
 export type TabId = (typeof tabs)[number]["id"];
@@ -55,7 +55,7 @@ export function DashboardTabs({ activeTab, onTabChange }: DashboardTabsProps) {
                 transition={tabIndicatorSpring}
               />
             )}
-            <span className="relative z-10 hidden sm:inline">{tab.emoji}</span>
+            <span className="relative z-10 hidden sm:inline"></span>
             <tab.icon className="relative z-10 h-4 w-4" />
             <span className="relative z-10">{tab.label}</span>
           </button>

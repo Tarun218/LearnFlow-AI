@@ -46,7 +46,7 @@ export default function NotesBox() {
           </div>
           <div>
             <h2 className="text-xl font-semibold text-[var(--lf-fg)]">
-              📝 AI Notes
+            AI Notes
             </h2>
             <p className="text-sm text-[var(--lf-fg-muted)]">
               Structured study notes from your material

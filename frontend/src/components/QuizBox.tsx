@@ -46,7 +46,7 @@ export default function QuizBox() {
           </div>
           <div>
             <h2 className="text-xl font-semibold text-[var(--lf-fg)]">
-              ✨ Quiz time
+              Quiz time
             </h2>
             <p className="text-sm text-[var(--lf-fg-muted)]">
               Multiple-choice practice from your PDF

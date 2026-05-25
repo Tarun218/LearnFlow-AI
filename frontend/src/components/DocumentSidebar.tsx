@@ -34,7 +34,7 @@ export default function DocumentSidebar({
     <>
       <div className="flex items-center justify-between border-b border-[var(--lf-border)] p-4">
         <div>
-          <h2 className="font-semibold text-[var(--lf-fg)]">📁 My materials</h2>
+          <h2 className="font-semibold text-[var(--lf-fg)]">My Materials</h2>
           <p className="text-xs text-[var(--lf-fg-muted)]">
             {documents.length} notebooks
           </p>

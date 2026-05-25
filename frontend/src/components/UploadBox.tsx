@@ -92,7 +92,7 @@ export default function UploadBox() {
           </div>
           <div>
             <h2 className="text-xl font-semibold text-[var(--lf-fg)]">
-              📎 Upload PDF
+              Upload PDF
             </h2>
             <p className="text-sm text-[var(--lf-fg-muted)]">
               Add study materials to your workspace

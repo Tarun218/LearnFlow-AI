@@ -46,7 +46,7 @@ function FlashcardItem({
           )}
         >
           <span className="text-xs font-bold uppercase tracking-wider text-amber-800/70 dark:text-amber-200/70">
-            🃏 Question
+            Question
           </span>
           <p className="mt-2 flex-1 font-semibold text-[var(--lf-fg)] line-clamp-4">
             {question}
@@ -129,7 +129,7 @@ export default function FlashcardsBox() {
             </>
           ) : (
             <>
-              <RotateCcw className="h-4 w-4" />
+              {/* <RotateCcw className="h-4 w-4" /> */}
               Generate deck
             </>
           )}

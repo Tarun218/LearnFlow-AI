@@ -70,7 +70,7 @@ export default function DashboardPage() {
             className="mx-auto max-w-5xl"
           >
             <p className="mb-1 text-sm font-medium text-[var(--lf-accent)]">
-              📚 Your study hub
+            Your study hub
             </p>
             <h2 className="mb-2 text-2xl font-bold sm:text-3xl">
               What are we learning today?

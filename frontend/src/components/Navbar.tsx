@@ -79,7 +79,7 @@ export default function Navbar() {
             Log in
           </Button>
           <Button size="sm" type="button" onClick={() => router.push("/signup")}>
-            Start studying ✨
+            Start studying
           </Button>
         </div>
 

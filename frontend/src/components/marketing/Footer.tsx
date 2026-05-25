@@ -22,7 +22,7 @@ export function Footer() {
         </button>
 
         <p className="text-sm text-[var(--lf-fg-muted)]">
-          © {year} LearnFlow AI · Made for students 📚
+          © {year} LearnFlow AI · Made for students 
         </p>
 
         <div className="flex gap-6 text-sm text-[var(--lf-fg-muted)]">

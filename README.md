@@ -59,81 +59,73 @@ The platform combines:
 
 # 📸 Screenshots
 
-> Create a folder:
+> All screenshots are stored inside:
 >
 > `docs/screenshots/`
-
-Then add screenshots there.
 
 ---
 
 ## 🏠 Landing Page
 
-```md
-![Landing Page](docs/screenshots/landing.png)
-```
+### Hero Section
+![Landing Hero](docs/screenshots/landing1.png)
+
+### Features Overview
+![Landing Features](docs/screenshots/landing3.png)
+
+### Statistics Section
+![Landing Stats](docs/screenshots/landing2.png)
+
+### Learning Experience
+![Learning Experience](docs/screenshots/landing4.png)
+
+### Dashboard Preview
+![Dashboard Preview](docs/screenshots/landing5.png)
+
+### Footer Section
+![Footer](docs/screenshots/landing6.png)
 
 ---
 
-## 📚 Dashboard
+## 🔐 Authentication
 
-```md
-![Dashboard](docs/screenshots/dashboard.png)
-```
+### Signup Page
+![Signup](docs/screenshots/signup.png)
 
 ---
 
-## 💬 AI Chat
+## 📚 Study Dashboard
 
-```md
+### PDF Upload Workspace
+![Upload](docs/screenshots/upload.png)
+
+---
+
+## 💬 AI Chat Assistant
+
+### Chat Interface
 ![Chat](docs/screenshots/chat.png)
-```
 
 ---
 
-## 🧠 Flashcards
+## 🧠 Flashcards Generation
 
-```md
+### Smart Flashcards
 ![Flashcards](docs/screenshots/flashcards.png)
-```
 
 ---
 
 ## 📝 Quiz Generation
 
-```md
+### AI Quiz Generator
 ![Quiz](docs/screenshots/quiz.png)
-```
 
 ---
 
-# ✨ Features
+## 📝 Notes Generation
 
-## 📄 PDF Upload & Processing
-
-- Upload study materials in PDF format
-- Automatic text extraction
-- Vector indexing using ChromaDB
-- Semantic search support
-
----
-
-## 💬 Chat with Documents
-
-- AI-powered contextual conversations
-- Retrieval-Augmented Generation (RAG)
-- Ask questions directly from uploaded material
-- Smart contextual responses
-
----
-
-## 📝 AI Notes Generator
-
-Generate:
-- concise summaries,
-- study notes,
-- key concepts,
-- revision material automatically.
+### AI Notes Summarization
+![Notes](docs/screenshots/notes.png)
 
 ---
 

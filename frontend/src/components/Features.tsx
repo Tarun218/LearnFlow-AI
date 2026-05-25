@@ -62,7 +62,7 @@ export default function Features() {
           className="mb-16 text-center"
         >
           <p className="text-sm font-medium uppercase tracking-widest text-[var(--lf-accent)]">
-            ✏️ Features
+            Features
           </p>
           <h2 className="mt-3 text-3xl font-bold text-[var(--lf-fg)] sm:text-4xl">
             Everything you need to learn smarter

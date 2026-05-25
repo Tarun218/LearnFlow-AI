@@ -88,7 +88,7 @@ export default function ChatBox() {
       <div className="flex items-center justify-between border-b border-[var(--lf-border)] px-6 py-5">
         <div>
           <h2 className="text-xl font-semibold text-[var(--lf-fg)]">
-            💬 Chat with PDF
+            Chat with PDF
           </h2>
           <p className="text-sm text-[var(--lf-fg-muted)]">
             {activeDocument

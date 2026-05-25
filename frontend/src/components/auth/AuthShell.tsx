@@ -49,7 +49,7 @@ export function AuthShell({ title, subtitle, children }: AuthShellProps) {
         >
           <Panel className="p-8">
             <div className="mb-8 text-center">
-              <span className="text-3xl">🎓</span>
+              <span className="text-3xl"></span>
               <h1 className="mt-3 text-2xl font-bold text-[var(--lf-fg)]">
                 {title}
               </h1>
