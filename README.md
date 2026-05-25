@@ -1,7 +1,6 @@
 # LearnFlow AI
-
 <p align="center">
-  <img src="YOUR_LOGO_OR_BANNER_LINK_HERE" alt="LearnFlow AI Banner" width="100%" />
+  <img src="./docs/screenshots/banner.png" alt="LearnFlow AI Banner" width="100%" />
 </p>
 
 <p align="center">
