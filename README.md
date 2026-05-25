@@ -1,129 +1,311 @@
 # LearnFlow AI
 
-**Your AI-powered digital study notebook** — upload PDFs, chat with your materials, and generate notes, flashcards, and quizzes in one beautiful workspace.
+<p align="center">
+  <img src="YOUR_LOGO_OR_BANNER_LINK_HERE" alt="LearnFlow AI Banner" width="100%" />
+</p>
 
-[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)](https://nextjs.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-Python-009688?style=flat-square&logo=fastapi)](https://fastapi.tiangolo.com/)
-[![Gemini](https://img.shields.io/badge/Gemini-AI-4285F4?style=flat-square&logo=google)](https://ai.google.dev/)
+<p align="center">
+  <b>AI-powered study assistant for smarter learning.</b>
+  <br />
+  Upload PDFs • Chat with documents • Generate notes • Create flashcards • Practice quizzes
+</p>
+
+<p align="center">
+  <a href="https://learn-flow-r11dhrlj0-tarun218s-projects.vercel.app">
+    <img src="https://img.shields.io/badge/Live-Demo-8b5cf6?style=for-the-badge" />
+  </a>
+  
+  <a href="https://github.com/Tarun218/LearnFlow-AI">
+    <img src="https://img.shields.io/badge/GitHub-Repository-111827?style=for-the-badge&logo=github" />
+  </a>
+
+  <a href="https://tarunsingodia-learnflow-ai-backend.hf.space">
+    <img src="https://img.shields.io/badge/API-Backend-0ea5e9?style=for-the-badge" />
+  </a>
+</p>
 
 ---
 
-## Features
+# ✨ Overview
 
-| Feature | Description |
-|---------|-------------|
-| **PDF upload** | Upload study PDFs; text is extracted and indexed for AI |
-| **Chat with PDF** | Ask questions grounded in your document (RAG via ChromaDB) |
-| **AI summaries** | Quick summaries on upload |
-| **Notes** | Structured study notes from your latest document |
-| **Flashcards** | Tap-to-flip Q&A cards for active recall |
-| **Quizzes** | Multiple-choice practice generated from your material |
-| **Auth** | Email signup/login with JWT |
-| **Themes** | Light (notebook) and dark (cozy study-night) modes |
+LearnFlow AI is a modern AI-powered study platform designed to help students learn faster and more efficiently.
+
+Users can upload PDFs and instantly:
+- chat with study material,
+- generate smart notes,
+- create flashcards,
+- practice AI-generated quizzes,
+- and organize learning in one elegant workspace.
+
+The platform combines:
+- Retrieval-Augmented Generation (RAG),
+- semantic search,
+- AI-powered summarization,
+- and an interactive study dashboard.
 
 ---
 
-## Architecture
+# 🚀 Live Demo
+
+## 🌐 Frontend
+
+👉 YOUR_VERCEL_LINK_HERE
+
+## ⚡ Backend API
+
+👉 YOUR_HUGGINGFACE_LINK_HERE
+
+---
+
+# 📸 Screenshots
+
+> Create a folder:
+>
+> `docs/screenshots/`
+
+Then add screenshots there.
+
+---
+
+## 🏠 Landing Page
+
+```md
+![Landing Page](docs/screenshots/landing.png)
+```
+
+---
+
+## 📚 Dashboard
+
+```md
+![Dashboard](docs/screenshots/dashboard.png)
+```
+
+---
+
+## 💬 AI Chat
+
+```md
+![Chat](docs/screenshots/chat.png)
+```
+
+---
+
+## 🧠 Flashcards
+
+```md
+![Flashcards](docs/screenshots/flashcards.png)
+```
+
+---
+
+## 📝 Quiz Generation
+
+```md
+![Quiz](docs/screenshots/quiz.png)
+```
+
+---
+
+# ✨ Features
+
+## 📄 PDF Upload & Processing
+
+- Upload study materials in PDF format
+- Automatic text extraction
+- Vector indexing using ChromaDB
+- Semantic search support
+
+---
+
+## 💬 Chat with Documents
+
+- AI-powered contextual conversations
+- Retrieval-Augmented Generation (RAG)
+- Ask questions directly from uploaded material
+- Smart contextual responses
+
+---
+
+## 📝 AI Notes Generator
+
+Generate:
+- concise summaries,
+- study notes,
+- key concepts,
+- revision material automatically.
+
+---
+
+## 🧠 Flashcards Generator
+
+- AI-generated flashcards
+- Interactive flip animations
+- Active recall learning
+
+---
+
+## ❓ Quiz Generator
+
+- Multiple-choice quizzes
+- AI-generated practice questions
+- Quick revision support
+
+---
+
+## 🎨 Modern Study-Themed UI
+
+- Animated interface
+- Dark & light modes
+- Notebook-inspired design
+- Responsive layout
+- Smooth transitions & interactions
+
+---
+
+# 🏗️ System Architecture
 
 ```mermaid
 flowchart LR
-  subgraph Client["Frontend (Vercel)"]
-    UI[Next.js App]
+
+  User --> Frontend
+
+  subgraph Frontend["Next.js Frontend"]
+    Dashboard
+    ChatUI
+    UploadUI
   end
 
-  subgraph API["Backend (Hugging Face / Docker)"]
-    FA[FastAPI]
-    DB[(SQLite)]
-    CH[(ChromaDB)]
-    GEM[Gemini API]
+  subgraph Backend["FastAPI Backend"]
+    Auth
+    PDFProcessing
+    RAG
+    AI
   end
 
-  UI -->|REST + JSON| FA
-  FA --> DB
-  FA --> CH
-  FA --> GEM
+  subgraph AIStack["AI Layer"]
+    Gemini
+    ChromaDB
+    Embeddings
+  end
+
+  Frontend --> Backend
+  Backend --> Gemini
+  Backend --> ChromaDB
+  Backend --> Embeddings
 ```
 
 ---
 
-## Tech stack
+# 🛠️ Tech Stack
 
-| Layer | Technologies |
-|-------|----------------|
-| **Frontend** | Next.js 16, React 19, TypeScript, Tailwind CSS v4, Framer Motion, Zustand |
-| **Backend** | FastAPI, SQLAlchemy, SQLite, ChromaDB, Sentence Transformers |
-| **AI** | Google Gemini (`gemini-2.5-flash`) |
-| **Auth** | JWT (python-jose), bcrypt |
+## Frontend
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- Zustand
 
 ---
 
-## Project structure
+## Backend
 
-```
-LearnFlowAI/
-├── frontend/          # Next.js app (deploy to Vercel)
+- FastAPI
+- SQLAlchemy
+- SQLite
+- JWT Authentication
+- ChromaDB
+
+---
+
+## AI & ML
+
+- Google Gemini API
+- Sentence Transformers
+- Vector Embeddings
+- Retrieval-Augmented Generation (RAG)
+
+---
+
+## Deployment
+
+- Vercel (Frontend)
+- Hugging Face Spaces (Backend)
+
+---
+
+# 📂 Project Structure
+
+```bash
+LearnFlow-AI/
+│
+├── frontend/
 │   ├── src/
-│   │   ├── app/       # Pages: /, /login, /signup, /dashboard
-│   │   ├── components/
-│   │   └── lib/       # API client (api.ts)
-│   └── .env.example
-├── backend/           # FastAPI API (deploy to Hugging Face / Docker)
-│   ├── routes/        # auth, upload, chat, notes, quiz, flashcards
-│   ├── services/      # Gemini, embeddings, Chroma
-│   ├── Dockerfile
-│   └── .env.example
+│   ├── public/
+│   └── components/
+│
+├── backend/
+│   ├── routes/
+│   ├── services/
+│   ├── models/
+│   ├── schemas/
+│   └── database/
+│
 └── README.md
 ```
 
 ---
 
-## Prerequisites
+# ⚙️ Local Setup
 
-- **Node.js** 20+
-- **Python** 3.11+
-- **Gemini API key** — [Google AI Studio](https://aistudio.google.com/apikey)
-
----
-
-## Local development
-
-### 1. Clone the repository
+# 1️⃣ Clone Repository
 
 ```bash
 git clone https://github.com/Tarun218/LearnFlow-AI.git
+
 cd LearnFlow-AI
 ```
 
-### 2. Backend setup
+---
+
+# 2️⃣ Backend Setup
 
 ```bash
 cd backend
 
-# Create virtual environment
 python -m venv venv
 
-# Activate (Windows)
+# Windows
 venv\Scripts\activate
-# Activate (macOS/Linux)
+
+# Linux/Mac
 # source venv/bin/activate
 
 pip install -r requirements.txt
 
-# Configure environment
 cp .env.example .env
-# Edit .env — set GEMINI_API_KEY and JWT_SECRET_KEY
-
-# Run API
-python -m uvicorn main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-API docs: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+Add:
 
-> **Note:** First request may be slow while embedding models download.
+```env
+GEMINI_API_KEY=your_key
+JWT_SECRET_KEY=your_secret
+```
 
-### 3. Frontend setup
+Run backend:
 
-Open a **new terminal**:
+```bash
+python -m uvicorn main:app --reload --port 8000
+```
+
+---
+
+# 3️⃣ Frontend Setup
+
+Open new terminal:
 
 ```bash
 cd frontend
@@ -131,157 +313,120 @@ cd frontend
 npm install
 
 cp .env.example .env.local
-# Set: NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
+```
 
+Add:
+
+```env
+NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
+```
+
+Run frontend:
+
+```bash
 npm run dev
 ```
 
-App: [http://localhost:3000](http://localhost:3000)
-
 ---
 
-## Environment variables
+# 🔐 Environment Variables
 
-### Frontend (`frontend/.env.local`)
+## Frontend
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `NEXT_PUBLIC_API_URL` | Yes | Backend base URL, **no trailing slash** |
-
-### Backend (`backend/.env`)
-
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `GEMINI_API_KEY` | Yes | Google Gemini API key |
-| `JWT_SECRET_KEY` | Yes | Long random string for JWT signing |
-| `CORS_ORIGINS` | Prod | Comma-separated frontend URLs |
-| `CORS_ORIGIN_REGEX` | Optional | e.g. `https://.*\.vercel\.app` |
-
----
-
-## Deployment
-
-### Frontend → [Vercel](https://vercel.com)
-
-1. Import this GitHub repository on Vercel.
-2. Set **Root Directory** to `frontend`.
-3. Add environment variable:
-
-   | Name | Value |
-   |------|--------|
-   | `NEXT_PUBLIC_API_URL` | Your production backend URL |
-
-4. Deploy. Redeploy after changing `NEXT_PUBLIC_*` variables (baked in at build time).
-
-### Backend → [Hugging Face Spaces](https://huggingface.co/spaces) (Docker)
-
-1. Create a new **Docker** Space.
-2. Push or sync the `backend/` folder (or full repo with `sdk: docker` and path to `backend/Dockerfile`).
-3. Set Space **Secrets / Variables**:
-
-   ```
-   GEMINI_API_KEY=...
-   JWT_SECRET_KEY=...
-   CORS_ORIGINS=https://your-app.vercel.app
-   CORS_ORIGIN_REGEX=https://.*\.vercel\.app
-   ```
-
-4. Space runs on port **7860** (see `backend/Dockerfile`).
-5. Use the Space URL as `NEXT_PUBLIC_API_URL` on Vercel.
-
-### Backend → Docker (any host)
-
-```bash
-cd backend
-docker build -t learnflow-api .
-docker run -p 7860:7860 \
-  -e GEMINI_API_KEY=your_key \
-  -e JWT_SECRET_KEY=your_secret \
-  -e CORS_ORIGINS=https://your-frontend.vercel.app \
-  learnflow-api
+```env
+NEXT_PUBLIC_API_URL=
 ```
 
 ---
 
-## API overview
+## Backend
 
-All endpoints use the base URL from `NEXT_PUBLIC_API_URL`.
+```env
+GEMINI_API_KEY=
+JWT_SECRET_KEY=
+CORS_ORIGINS=
+```
+
+---
+
+# 🌍 Deployment
+
+## Frontend → Vercel
+
+- Import GitHub repository
+- Select `frontend` as root directory
+- Add environment variable:
+
+```env
+NEXT_PUBLIC_API_URL=YOUR_BACKEND_URL
+```
+
+Deploy.
+
+---
+
+## Backend → Hugging Face Spaces
+
+- Create Docker Space
+- Upload backend
+- Add secrets:
+
+```env
+GEMINI_API_KEY=
+JWT_SECRET_KEY=
+CORS_ORIGINS=
+```
+
+Deploy.
+
+---
+
+# 📡 API Endpoints
 
 | Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/` | Health check |
-| `POST` | `/signup` | Register (JSON body) |
-| `POST` | `/login` | Login → JWT |
-| `POST` | `/upload-pdf` | Upload PDF (multipart) |
-| `GET` | `/documents` | List indexed documents |
-| `POST` | `/chat` | Chat with PDF (JSON: `question`, `document_id`) |
-| `POST` | `/summarize` | Summarize text |
-| `POST` | `/generate-notes` | Generate notes |
-| `POST` | `/generate-flashcards` | Generate flashcards |
-| `POST` | `/generate-quiz` | Generate quiz |
-
-Interactive docs: `{API_URL}/docs`
+|---|---|---|
+| POST | `/signup` | Register user |
+| POST | `/login` | User login |
+| POST | `/upload-pdf` | Upload PDF |
+| POST | `/chat` | Chat with document |
+| POST | `/generate-notes` | Generate notes |
+| POST | `/generate-flashcards` | Generate flashcards |
+| POST | `/generate-quiz` | Generate quiz |
 
 ---
 
-## GitHub checklist
+# 🧪 Future Improvements
 
-Before pushing, confirm:
-
-- [ ] No `.env` or API keys committed (use `.env.example` only)
-- [ ] `backend/uploads/` and `backend/chroma_db/` are gitignored
-- [ ] `npm run build` passes in `frontend/`
-- [ ] Backend starts locally with valid `GEMINI_API_KEY`
-- [ ] Vercel `NEXT_PUBLIC_API_URL` points to live backend
-- [ ] Hugging Face `CORS_ORIGINS` includes your Vercel URL
-
-```bash
-# Quick verify before push
-cd frontend && npm run build
-cd ../backend && python -c "from main import app; print('OK', app.title)"
-```
+- Study planner
+- Spaced repetition
+- AI memory
+- PDF highlighting
+- Export notes
+- Multiplayer study rooms
+- Voice interaction
 
 ---
 
-## CI
+# 👨‍💻 Author
 
-GitHub Actions runs on push/PR to `main`:
+## Tarun Singodia
 
-- Frontend: `npm ci` → `lint` → `build`
+- GitHub: https://github.com/Tarun218
 
-See [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
-
----
-
-## Troubleshooting
-
-| Issue | Fix |
-|-------|-----|
-| `ERR_CONNECTION_REFUSED` on live site | Set `NEXT_PUBLIC_API_URL` on Vercel and **redeploy** |
-| CORS errors | Add exact Vercel URL to `CORS_ORIGINS` on backend; restart Space |
-| `Failed to fetch` / timeout | Wake Hugging Face Space; first load can take 1–2 min |
-| Chat returns generic errors | Upload a PDF first; select document in sidebar |
-| Build fails on Vercel | Ensure root directory is `frontend` |
+Built with passion for students, AI, and smarter learning.
 
 ---
 
-## Contributing
+# ⭐ Support
 
-1. Fork the repository  
-2. Create a feature branch: `git checkout -b feature/my-feature`  
-3. Commit changes and open a PR  
-4. Ensure CI passes  
+If you like this project:
 
----
-
-## License
-
-This project is provided for educational and portfolio use. Add a license file if you open-source it publicly.
+- Star the repository
+- Share it with others
+- Fork and contribute
 
 ---
 
-## Author
+# 📄 License
 
-**Tarun Singodia** — [GitHub @Tarun218](https://github.com/Tarun218)
-
-Built with care for students who want a smarter way to learn.
+This project is built for educational and portfolio purposes.
