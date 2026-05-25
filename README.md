@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://learn-flow-r11dhrlj0-tarun218s-projects.vercel.app">
+  <a href="https://learn-flow-4w3y9r3wx-tarun218s-projects.vercel.app">
     <img src="https://img.shields.io/badge/Live-Demo-8b5cf6?style=for-the-badge" />
   </a>
   
@@ -48,7 +48,7 @@ The platform combines:
 
 ## 🌐 Frontend
 
-👉 https://learn-flow-r11dhrlj0-tarun218s-projects.vercel.app
+👉 https://learn-flow-4w3y9r3wx-tarun218s-projects.vercel.app
 
 ## ⚡ Backend API
 
